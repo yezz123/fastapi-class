@@ -13,7 +13,8 @@ AnyCallable = TypeVar("AnyCallable", bound=Callable[..., Any])
     This module contains the `Routable` class, which is used to define a class
 
     Returns:
-        [type] -- [description]
+        [Routable]: A class that can be used to define a routable class
+
 """
 
 
@@ -24,7 +25,9 @@ class RoutableMeta(type):
     def __new__(
         cls: Type[type], name: str, bases: Tuple[Type[Any]], attrs: Dict[str, Any]
     ) -> "RoutableMeta":
-        endpoints: List[EndpointDefinition] = []
+        endpoints: List[EndpointDefinition] = [
+            # This is a list of all the endpoints that were defined on the class
+        ]
         # Loop through all the methods in the class
         for v in attrs.values():
             if inspect.isfunction(v) and hasattr(v, "_endpoint"):
@@ -43,7 +46,9 @@ class Routable(metaclass=RoutableMeta):
         router.
     """
 
-    _endpoints: List[EndpointDefinition] = []
+    _endpoints: List[EndpointDefinition] = [
+        # This is a list of all the endpoints that the class has
+    ]
 
     def __init__(self) -> None:
         # Create a router for the class
