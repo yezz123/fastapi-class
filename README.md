@@ -32,7 +32,8 @@ def parse_arg() -> argparse.Namespace:
 class UserRoutes(Routable):
    """Inherits from Routable."""
 
-   # Note injection here by simply passing values to the constructor. Other injection frameworks also
+   # Note injection here by simply passing values to the constructor.
+   # Other injection frameworks also work.
    # supported as there's nothing special about this __init__ method.
    def __init__(self, pong: pong) -> None:
       """Constructor. The pong is injected here."""
@@ -50,7 +51,7 @@ class UserRoutes(Routable):
 
 def main():
     args = parse_args()
-    # Configure the pomg per command line arguments
+    # Configure the pong per command line arguments
     pong = pong(args.url, args.user, args.password)
     # Simple intuitive injection
     user_routes = UserRoutes(pong)
@@ -78,6 +79,7 @@ __Note:__ that `app` is a global. Furthermore, [FastAPI's suggested way of doing
 app = FastAPI()
 
 class ValueToInject:
+   # Value to inject into the function.
    def __init__(self, y: int) -> None:
       self.y = y
 
