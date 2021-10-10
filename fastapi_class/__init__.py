@@ -2,7 +2,7 @@
     FastAPI_Class : contains classes and decorators to use FastAPI with "class based routing".
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 from fastapi_class import args, decorators, routable
 

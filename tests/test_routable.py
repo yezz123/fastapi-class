@@ -32,8 +32,8 @@ class ExampleRoutable(Routable):
     async def do_async(self) -> int:
         return self.__injected + 1
 
-    @get(path="/aecho/{val}", response_class=PlainTextResponse)
-    async def aecho(self, val: str) -> str:
+    @get(path="/echo/{val}", response_class=PlainTextResponse)
+    async def echo(self, val: str) -> str:
         return f"{val} {self.__injected}"
 
 
@@ -99,6 +99,6 @@ def test_async_methods_with_args_work() -> None:
 
     client = TestClient(app)
 
-    response = client.get("/aecho/hello")
+    response = client.get("/echo/hello")
     assert response.status_code == 200
     assert response.text == "hello 2"
