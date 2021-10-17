@@ -9,6 +9,8 @@ help:
 	@echo "    make bumpversion-major"
 	@echo "    make bumpversion-minor"
 	@echo "    make bumpversion-patch"
+	@echo "    make clean"
+	@echo "    make clean-test"
 
 setuptools:
 	pip install setuptools wheel twine
@@ -36,3 +38,12 @@ bumpversion-minor:
 
 bumpversion-patch:
 	bumpversion patch
+
+clean:
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
+
+clean-test:
+	rm -fr .pytest_cache
