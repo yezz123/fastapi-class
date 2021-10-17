@@ -1,0 +1,72 @@
+site_name: FastAPI Class
+site_description: Generate Class & Decorators for your FastAPI project ⚡
+site_url: https://yezz123.github.io/fastapi-class/
+
+theme:
+  name: 'material'
+  palette:
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+          icon: material/lightbulb
+          name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+          icon: material/lightbulb-outline
+          name: Switch to light mode
+  icon:
+    logo: material/bird
+  favicon: favicon.png
+
+repo_name: yezz123/fastapi-class
+repo_url: https://github.com/yezz123/fastapi-class
+edit_uri: ""
+
+
+markdown_extensions:
+  - markdown_include.include:
+      base_path: docs
+  - toc:
+      permalink: true
+  - admonition
+  - codehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid
+  - pymdownx.tasklist
+  - pymdownx.tabbed
+
+plugins:
+  - search
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(window.localStorage.getItem('/.__palette')).index == 1) ? 'dark' : 'light'
+extra_javascript:
+    - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+nav:
+  - About: index.md
+  - installation.md
+  - Overview: overview.md
+  - Development - Contributing: contributing.md
+  - Code of Conduct: code_of_conduct.md
+  - License: license.md
+
+extra:
+  social:
+  - icon: fontawesome/brands/github-alt
+    link: https://github.com/yezz123
+  - icon: fontawesome/brands/discord
+    link: https://discord.gg/2hdSWVgNPH
+  - icon: fontawesome/brands/twitter
+    link: https://twitter.com/THyasser1
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/in/yezz123
+  - icon: fontawesome/solid/globe
+    link: https://yezz.me

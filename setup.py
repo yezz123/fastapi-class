@@ -16,6 +16,7 @@ setuptools.setup(
     project_urls={
         "Source Code": "https://github.com/yezz123/fastapi-class",
         "Bug Tracker": "https://github.com/yezz123/fastapi-class/issues",
+        "Documentation": "https://yezz123.github.io/fastapi-class/",
     },
     packages=setuptools.find_packages(
         exclude=["tests", "tests.*", "*.tests", "*.tests.*"],
@@ -27,6 +28,7 @@ setuptools.setup(
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3 :: Only",
         "Topic :: Utilities",
         "Typing :: Typed",

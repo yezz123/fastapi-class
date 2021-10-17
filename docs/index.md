@@ -74,64 +74,6 @@ def main():
     app.include_router(user_routes.router)
 ```
 
-## Why 🐣
-
-FastAPI generally has one define routes like:
-
-```py
-app = FastAPI()
-
-@app.get('/echo/{x}')
-def echo(x: int) -> int:
-   return x
-```
-
-__Note:__ that `app` is a global. Furthermore, [FastAPI's suggested way of doing dependency injection](https://fastapi.tiangolo.com/tutorial/dependencies/classes-as-dependencies/) is handy for things like pulling values out of header in the HTTP request. However, they don't work well for more standard dependency injection scenarios where we'd like to do something like inject a Data Access Object or database connection. For that, FastAPI suggests [their parameterized dependencies](https://fastapi.tiangolo.com/advanced/advanced-dependencies/) which might look something like:
-
-```py
-app = FastAPI()
-
-class ValueToInject:
-   # Value to inject into the function.
-   def __init__(self, y: int) -> None:
-      self.y = y
-
-   def __call__(self) -> int:
-      return self.y
-
-to_add = ValueToInject(2)
-
-@app.get('/add/{x}')
-def add(x: int, y: Depends(to_add)) -> int:
-   return x + y
-```
-
-## Development 🚧
-
-You should create a virtual environment and activate it:
-
-```bash
-python -m venv venv/
-```
-
-```bash
-source venv/bin/activate
-```
-
-And then install the development dependencies:
-
-```bash
-pip install -r requirements.dev.txt
-```
-
-### Format the code 💅
-
-Execute the following command to apply `pre-commit` formatting:
-
-```bash
-make lint
-```
-
 ## License 🍻
 
-This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the [MIT license](license.md).
