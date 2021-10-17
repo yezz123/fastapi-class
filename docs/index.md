@@ -20,7 +20,7 @@
 
 **Source Code**: <https://github.com/yezz123/fastapi-class>
 
-**Install the project**: `pip install fastapi-class`
+**Documentation**: <https://yezz123.github.io/fastapi-class>
 
 ---
 
