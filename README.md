@@ -1,7 +1,20 @@
 # Fastapi-Class 🦜
 
+![Class](https://user-images.githubusercontent.com/52716203/137606695-f110f129-08b1-45f3-a445-962c1f28378c.png)
+
+<p align="center">
+    <em>Classes and Decorators to use FastAPI with Class based routing</em>
+</p>
+
 [![codecov](https://codecov.io/gh/yezz123/fastapi-class/branch/main/graph/badge.svg?token=1W73kO30IL)](https://codecov.io/gh/yezz123/fastapi-class)
-[![Downloads](https://pepy.tech/badge/fastapi-class)](https://pepy.tech/project/fastapi-class)
+[![Testing](https://github.com/yezz123/fastapi-class/actions/workflows/test.yml/badge.svg)](https://github.com/yezz123/fastapi-class/actions/workflows/test.yml)
+[![PyPI version](https://badge.fury.io/py/fastapi-class.svg)](https://badge.fury.io/py/fastapi-class)
+[![Downloads](https://pepy.tech/badge/fastapi-class/month)](https://pepy.tech/project/fastapi-class)
+[![Downloads](https://pepy.tech/badge/fastapi-class/week)](https://pepy.tech/project/fastapi-class)
+[![Language](https://img.shields.io/badge/Language-Python-green?style)](https://github.com/yezz123)
+[![framework](https://img.shields.io/badge/Framework-FastAPI-blue?style)](https://fastapi.tiangolo.com/)
+[![Star Badge](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flatcolor=BC4E99)](https://github.com/yezz123/fastapi-class)
+[![Pypi](https://img.shields.io/pypi/pyversions/fastapi-class.svg?color=%2334D058)](https://pypi.org/project/fastapi-class)
 
 ---
 
