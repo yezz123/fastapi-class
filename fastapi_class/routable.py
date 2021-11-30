@@ -47,7 +47,8 @@ class Routable(metaclass=RoutableMeta):
     """
 
     _endpoints: List[EndpointDefinition] = [
-        # This is a list of all the endpoints that the class has
+        # This is a list of all the endpoints that the class has defined
+        # TODO: This should be a list of EndpointDefinition objects
     ]
 
     def __init__(self) -> None:
