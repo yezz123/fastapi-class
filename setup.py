@@ -35,5 +35,5 @@ setuptools.setup(
         "Typing :: Typed",
     ],
     python_requires=">=3.8",
-    install_requires=["fastapi==0.68.1", "pydantic==1.8.2"],
+    install_requires=["fastapi==0.70.0", "pydantic==1.8.2"],
 )
