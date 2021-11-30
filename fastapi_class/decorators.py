@@ -45,24 +45,24 @@ def post(path: str, **kwargs: Any) -> Callable[[AnyCallable], AnyCallable]:
 
 def put(path: str, **kwargs: Any) -> Callable[[AnyCallable], AnyCallable]:
     # TODO: implement
-    return route(path, methods=["PUT"], **kwargs)
+    return route(path, methods=["PUT"], **kwargs)  # pragma: no cover
 
 
 def delete(path: str, **kwargs: Any) -> Callable[[AnyCallable], AnyCallable]:
     # TODO: implement
-    return route(path, methods=["DELETE"], **kwargs)
+    return route(path, methods=["DELETE"], **kwargs)  # pragma: no cover
 
 
 def patch(path: str, **kwargs: Any) -> Callable[[AnyCallable], AnyCallable]:
     # TODO: implement
-    return route(path, methods=["PATCH"], **kwargs)
+    return route(path, methods=["PATCH"], **kwargs)  # pragma: no cover
 
 
 def options(path: str, **kwargs: Any) -> Callable[[AnyCallable], AnyCallable]:
     # TODO: implement
-    return route(path, methods=["OPTIONS"], **kwargs)
+    return route(path, methods=["OPTIONS"], **kwargs)  # pragma: no cover
 
 
 def head(path: str, **kwargs: Any) -> Callable[[AnyCallable], AnyCallable]:
     # TODO: implement
-    return route(path, methods=["HEAD"], **kwargs)
+    return route(path, methods=["HEAD"], **kwargs)  # pragma: no cover

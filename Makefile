@@ -12,23 +12,11 @@ help:
 	@echo "    make clean"
 	@echo "    make clean-test"
 
-setuptools:
-	pip install setuptools wheel twine
-
-install:
-	pip install -r requirements.dev.txt
-
 lint:
 	pre-commit run --all-files
 
 test:
 	pytest
-
-build:
-	python setup.py sdist bdist_wheel
-
-publish:
-	twine upload dist/*
 
 bumpversion-major:
 	bumpversion major --allow-dirty
@@ -46,4 +34,7 @@ clean:
 	find . -name '__pycache__' -exec rm -fr {} +
 
 clean-test:
+	rm -fr .tox/
+	rm -f .coverage
+	rm -fr htmlcov/
 	rm -fr .pytest_cache
