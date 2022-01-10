@@ -8,7 +8,7 @@ codecov
 pytest-cov
 mkdocs == 1.2.3
 mkdocs-markdownextradata-plugin == 0.2.5
-mkdocs-material == 8.1.4
+mkdocs-material == 8.1.5
 mkdocs-mermaid2-plugin
 markdown-include
 pymdown-extensions
