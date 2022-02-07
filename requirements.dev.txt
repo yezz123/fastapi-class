@@ -1,6 +1,6 @@
 -r requirements.txt
 
-pytest == 6.2.5
+pytest == 7.0.0
 requests == 2.27.1
 pre-commit
 bumpversion
