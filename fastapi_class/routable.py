@@ -26,13 +26,11 @@ class RoutableMeta(type):
         cls: Type[type], name: str, bases: Tuple[Type[Any]], attrs: Dict[str, Any]
     ) -> "RoutableMeta":
         endpoints: List[EndpointDefinition] = [
-            # This is a list of all the endpoints that were defined on the class
+            v._endpoint
+            for v in attrs.values()
+            if inspect.isfunction(v) and hasattr(v, "_endpoint")
         ]
-        # Loop through all the methods in the class
-        for v in attrs.values():
-            if inspect.isfunction(v) and hasattr(v, "_endpoint"):
-                # If the method is marked by a route/path decorator, add it to the list of endpoints
-                endpoints.append(v._endpoint)
+
         attrs["_endpoints"] = endpoints
         # Remove the _endpoint attribute from the class
         return cast(RoutableMeta, type.__new__(cls, name, bases, attrs))
