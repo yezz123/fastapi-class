@@ -2,7 +2,7 @@ import setuptools
 
 __version__ = "1.1.2"
 
-with open("README.md", "r", encoding="utf-8") as fh:
+with open("README.md", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
@@ -35,5 +35,5 @@ setuptools.setup(
         "Typing :: Typed",
     ],
     python_requires=">=3.8",
-    install_requires=["fastapi==0.75.0", "pydantic==1.9.0"],
+    install_requires=["fastapi==0.75.1", "pydantic==1.9.0"],
 )
