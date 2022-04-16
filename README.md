@@ -105,32 +105,6 @@ def add(x: int, y: Depends(to_add)) -> int:
    return x + y
 ```
 
-## Development 🚧
-
-You should create a virtual environment and activate it:
-
-```bash
-python -m venv venv/
-```
-
-```bash
-source venv/bin/activate
-```
-
-And then install the development dependencies:
-
-```bash
-pip install -r requirements.dev.txt
-```
-
-### Format the code 💅
-
-Execute the following command to apply `pre-commit` formatting:
-
-```bash
-make lint
-```
-
 ## License 🍻
 
 This project is licensed under the terms of the MIT license.

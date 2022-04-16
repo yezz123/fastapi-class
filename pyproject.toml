@@ -1,0 +1,54 @@
+[build-system]
+requires = ["flit"]
+build-backend = "flit.buildapi"
+
+[tool.flit.metadata]
+module = "fastapi_class"
+dist-name = "fastapi_class"
+author = "Yasser Tahiri"
+author-email = "yasserth19@gmail.com"
+home-page = "https://github.com/yezz123/fastapi-class"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Framework :: FastAPI",
+    "Framework :: AsyncIO",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Internet :: WWW/HTTP :: Session",
+    "Typing :: Typed",
+]
+description-file = "README.md"
+requires-python = ">=3.8"
+requires = [
+    "fastapi==0.75.1",
+    "pydantic==1.9.0"
+]
+
+[tool.flit.metadata.requires-extra]
+lint = [
+    "pre-commit==2.16.0",
+]
+test = [
+    "pytest==7.1.1",
+    "requests==2.27.1",
+    "codecov",
+    "pytest-cov"
+]
+docs = [
+    "mkdocs == 1.2.3",
+    "mkdocs-material==8.1.4",
+    "mkdocs-markdownextradata-plugin==0.2.5",
+    "mkdocs-mermaid2-plugin==0.5.2",
+    "markdown-include==0.6.0",
+    "pymdown-extensions==9.1",
+    "mdx-include==1.4.1",
+    "jinja2==3.0.3"
+]
+
+[tool.flit.metadata.urls]
+Documentation = "https://yezz123.github.io/fastapi-class/"
