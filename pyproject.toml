@@ -39,16 +39,6 @@ test = [
     "codecov",
     "pytest-cov"
 ]
-docs = [
-    "mkdocs == 1.2.3",
-    "mkdocs-material==8.1.4",
-    "mkdocs-markdownextradata-plugin==0.2.5",
-    "mkdocs-mermaid2-plugin==0.5.2",
-    "markdown-include==0.6.0",
-    "pymdown-extensions==9.1",
-    "mdx-include==1.4.1",
-    "jinja2==3.0.3"
-]
 
 [tool.flit.metadata.urls]
-Documentation = "https://yezz123.github.io/fastapi-class/"
+Documentation = "https://github.com/yezz123/fastapi-class/blob/main/README.md"
