@@ -1,4 +1,4 @@
-name: Build
+name: Test Suite
 
 on:
   push:
@@ -8,44 +8,28 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
-    services:
-      redis:
-        image: redis
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    timeout-minutes: 30
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.10.0]
-      fail-fast: false
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-test
-      - name: Install Flit
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: pip install flit
+          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-test-v02
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: flit install --symlink
-      - name: Lint
-        if: ${{ matrix.python-version != '3.9' }} && ${{ matrix.python-version != '3.8' }}
-        run: pre-commit run --all-files
-      - name: Test
-        run: python -m pytest --cov=fastapi_class
+        run: pip install -e .[test]
+      - name: Test with pytest
+        run: bash Scripts/test.sh
       - name: Upload coverage
         uses: codecov/codecov-action@v1

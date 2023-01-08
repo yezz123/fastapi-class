@@ -1,13 +1,17 @@
 [build-system]
-requires = ["flit"]
-build-backend = "flit.buildapi"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.flit.metadata]
-module = "fastapi_class"
-dist-name = "fastapi_class"
-author = "Yasser Tahiri"
-author-email = "yasserth19@gmail.com"
-home-page = "https://github.com/yezz123/fastapi-class"
+[project]
+name = "fastapi_class"
+description = "Classes and Decorators to use FastAPI with Class based routing"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [
+    { name = "Yasser Tahiri", email = "hello@yezz.me" },
+]
+
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
@@ -18,27 +22,60 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Internet :: WWW/HTTP :: Session",
     "Typing :: Typed",
 ]
-description-file = "README.md"
-requires-python = ">=3.8"
-requires = [
-    "fastapi==0.75.1",
-    "pydantic==1.9.0"
+
+dependencies = [
+    "fastapi >=0.65.2,<0.87.0",
+    "pydantic >=1.6.2,!=1.7,!=1.7.1,!=1.7.2,!=1.7.3,!=1.8,!=1.8.1,<2.0.0",
 ]
 
-[tool.flit.metadata.requires-extra]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/yezz123/fastapi-class"
+Funding = 'https://github.com/sponsors/yezz123'
+
+[project.optional-dependencies]
 lint = [
-    "pre-commit==2.16.0",
+    "pre-commit==2.21.0",
+    "mypy==0.991",
 ]
 test = [
-    "pytest==7.1.1",
     "requests==2.27.1",
-    "codecov",
-    "pytest-cov"
+    "pytest==7.2.0",
+    "pytest-asyncio == 0.20.3",
+    "codecov==2.1.12",
+    "pytest-cov==4.0.0",
 ]
 
-[tool.flit.metadata.urls]
-Documentation = "https://github.com/yezz123/fastapi-class/blob/main/README.md"
+[tool.hatch.version]
+path = "fastapi_class/__init__.py"
+
+[tool.isort]
+profile = "black"
+known_third_party = ["pydantic", "typing_extensions"]
+
+[tool.ruff]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.isort]
+known-third-party = ["pydantic", "typing_extensions"]
