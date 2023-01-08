@@ -1,7 +1,8 @@
-import dataclasses
+from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Type, Union
 
 from fastapi import Response, params
+from fastapi.datastructures import Default, DefaultPlaceholder
 from fastapi.responses import JSONResponse
 from fastapi.routing import APIRoute
 from starlette.routing import Route
@@ -10,7 +11,7 @@ SetIntStr = Set[Union[int, str]]
 DictIntStrAny = Dict[Union[int, str], Any]
 
 
-@dataclasses.dataclass
+@dataclass
 class RouteArgs:
     """
     This class contains the arguments that are passed to the functions.
@@ -35,7 +36,9 @@ class RouteArgs:
     response_model_exclude_defaults: bool = False
     response_model_exclude_none: bool = False
     include_in_schema: bool = True
-    response_class: Type[Response] = JSONResponse
+    response_class: Union[Type[Response], DefaultPlaceholder] = field(
+        default_factory=lambda: Default(JSONResponse)
+    )
     name: Optional[str] = None
     route_class_override: Optional[Type[APIRoute]] = None
     callbacks: Optional[List[Route]] = None
@@ -45,7 +48,7 @@ class RouteArgs:
         arbitrary_types_allowed = True
 
 
-@dataclasses.dataclass
+@dataclass
 class EndpointDefinition:
     """
     Endpoint is separate as it has to be bound to self before it can be used.
