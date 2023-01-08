@@ -31,7 +31,7 @@ def route(
         if not args.description:
             description = inspect.cleandoc(method.__doc__ or "")
             args.description = description or " "
-        setattr(method, "_endpoint", EndpointDefinition(endpoint=method, args=args))
+        method._endpoint = EndpointDefinition(endpoint=method, args=args)  # type: ignore
         return method
 
     return marker
