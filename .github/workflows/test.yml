@@ -30,6 +30,6 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: pip install -e .[test]
       - name: Test with pytest
-        run: bash Scripts/test.sh
+        run: bash scripts/test.sh
       - name: Upload coverage
         uses: codecov/codecov-action@v3
