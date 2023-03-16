@@ -24,6 +24,6 @@ jobs:
       - name: Install Dependencies
         run: pip install -e .[lint]
       - name: Lint
-        run: bash Scripts/format.sh
+        run: bash scripts/format.sh
       - name: check Static Analysis
-        run: bash Scripts/lint.sh
+        run: bash scripts/lint.sh
