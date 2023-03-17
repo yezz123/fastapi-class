@@ -27,111 +27,135 @@
 
 ---
 
-This package provides classes and decorators to use FastAPI with class based routing in Python 3.8. This allows you to construct an instance of a class and have methods of that instance be route handlers for FastAPI.
+As you create more complex FastAPI applications, you may find yourself frequently repeating the same dependencies in multiple related endpoints.
 
-**Note**: This package does not support async routes with Python versions less than 3.8 due to bugs in [`inspect.iscoroutinefunction`](https://stackoverflow.com/a/52422903/1431244). Specifically, with older versions of Python `iscoroutinefunction` incorrectly returns false so async routes are not awaited. As a result, this package only supports Python versions >= 3.8.
+A common question people have as they become more comfortable with FastAPI is how they can reduce the number of times they have to copy/paste the same dependency into related routes.
 
-To get started, install the package using pip:
+`fastapi_class` provides a `class-based view` decorator `@View` to help reduce the amount of boilerplate necessary when developing related routes.
 
-```sh
-pip install fastapi-class
-```
+> Highly inspired by [Fastapi-utils](https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/), Thanks to [@dmontagu](https://github.com/dmontagu) for the great work.
 
-### Example
+- Example:
 
-let's imagine that this code is part of a system that manages a list of users. The `Dao` class represents a Data Access Object, which is responsible for storing and retrieving user data from a database.
-
-The `UserRoutes` class is responsible for defining the routes (i.e., the URL paths) that users can access to perform various actions on the user data.
-
-Here's how the code could be used in a real world scenario:
-
-```py
-import argparse
-
-from dao import Dao
-from fastapi import FastAPI
-
-from fastapi_class.decorators import delete, get
-from fastapi_class.routable import Routable
-
-
-def parse_arg() -> argparse.Namespace:
-    """parse command line arguments."""
-    parser = argparse.ArgumentParser(
-        description="Example of FastAPI class based routing."
-    )
-    parser.add_argument("--url", type=str, help="URL to connect to.")
-    parser.add_argument("--user", type=str, help="User to connect with.")
-    parser.add_argument("--password", type=str, help="Password to connect with.")
-    return parser.parse_args()
-
-
-class UserRoutes(Routable):
-    """Inherits from Routable."""
-
-    # Note injection here by simply passing values to the constructor. Other injection frameworks also
-    # supported as there's nothing special about this __init__ method.
-    def __init__(self, dao: Dao) -> None:
-        """Constructor. The Dao is injected here."""
-        super().__init__()
-        self.__dao = Dao
-
-    @get("/user/{name}")
-    def get_user_by_name(self, name: str) -> str:
-        # Use our injected DAO instance.
-        return self.__dao.get_user_by_name(name)
-
-    @delete("/user/{name}")
-    def delete_user(self, name: str) -> None:
-        self.__dao.delete(name)
-
-
-def main():
-    args = parse_arg()
-    # Configure the DAO per command line arguments
-    dao = Dao(args.url, args.user, args.password)
-    # Simple intuitive injection
-    user_routes = UserRoutes(dao)
-    app = FastAPI()
-    # router member inherited from cr.Routable and configured per the annotations.
-    app.include_router(user_routes.router)
-```
-
-## Explanation
-
-FastAPI generally has one define routes like:
-
-```py
-from fastapi import FastAPI
+```python
+from fastapi import FastAPI, APIRouter, Query
+from pydantic import BaseModel
+from fastapi_class import View
 
 app = FastAPI()
+router = APIRouter()
 
-@app.get('/echo/{x}')
-def echo(x: int) -> int:
-   return x
+class ItemModel(BaseModel):
+    id: int
+    name: str
+    description: str = None
+
+@View(router)
+class ItemView:
+    def post(self, item: ItemModel):
+        return item
+
+    def get(self, item_id: int = Query(..., gt=0)):
+        return {"item_id": item_id}
+
+app.include_router(router)
 ```
 
-**Note**: that `app` is a global. Furthermore, [FastAPI's suggested way of doing dependency injection](https://fastapi.tiangolo.com/tutorial/dependencies/classes-as-dependencies/) is handy for things like pulling values out of header in the HTTP request. However, they don't work well for more standard dependency injection scenarios where we'd like to do something like inject a Data Access Object or database connection. For that, FastAPI suggests [their parameterized dependencies](https://fastapi.tiangolo.com/advanced/advanced-dependencies/) which might look something like:
+### Response model 📦
+
+`Exception` in list need to be either function that return `fastapi.HTTPException` itself. In case of a function it is required to have all of it's arguments to be `optional`.
 
 ```py
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter, HTTPException, status
+from fastapi.responses import PlainTextResponse
+from pydantic import BaseModel
+
+from fastapi_class import View
 
 app = FastAPI()
+router = APIRouter()
 
-class ValueToInject:
-   # Value to inject into the function.
-   def __init__(self, y: int) -> None:
-      self.y = y
+NOT_AUTHORIZED = HTTPException(401, "Not authorized.")
+NOT_ALLOWED = HTTPException(405, "Method not allowed.")
+NOT_FOUND  = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} not found.")
 
-   def __call__(self) -> int:
-      return self.y
+class ItemResponse(BaseModel):
+    field: str | None = None
 
-to_add = ValueToInject(2)
+@view(router)
+class MyView:
+    exceptions = {
+        "__all__": [NOT_AUTHORIZED],
+        "put": [NOT_ALLOWED, NOT_FOUND]
+    }
 
-@app.get('/add/{x}')
-def add(x: int, y: Depends(to_add)) -> int:
-   return x + y
+    RESPONSE_MODEL = {
+        "put": ItemResponse
+    }
+
+    RESPONSE_CLASS = {
+        "delete": PlainTextResponse
+    }
+
+    def get(self):
+        ...
+    def put(self):
+        ...
+    def delete(self):
+        ...
+
+app.include_router(router)
 ```
+
+### Customized Endpoints
+
+```py
+from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi.responses import PlainTextResponse
+from pydantic import BaseModel
+
+from fastapi_class import View, endpoint
+
+app = FastAPI()
+router = APIRouter()
+
+NOT_AUTHORIZED = HTTPException(401, "Not authorized.")
+NOT_ALLOWED = HTTPException(405, "Method not allowed.")
+NOT_FOUND  = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} not found.")
+EXCEPTION = HTTPException(400, "Example.")
+
+class UserResponse(BaseModel):
+    field: str | None = None
+
+@View(router)
+class MyView:
+    exceptions = {
+        "__all__": [NOT_AUTHORIZED],
+        "put": [NOT_ALLOWED, NOT_FOUND],
+        "edit": [EXCEPTION]
+    }
+
+    RESPONSE_MODEL = {
+        "put": UserResponse,
+        "edit": UserResponse
+    }
+
+    RESPONSE_CLASS = {
+        "delete": PlainTextResponse
+    }
+
+    def get(self):
+        ...
+    def put(self):
+        ...
+    def delete(self):
+        ...
+    @endpoint(("PUT",), path="edit")
+    def edit(self):
+        ...
+```
+
+**Note:** The `edit()` endpoint is decorated with the `@endpoint(("PUT",), path="edit")` decorator, which specifies that this endpoint should handle `PUT` requests to the `/edit` path.
 
 ## Development 🚧
 
@@ -160,12 +184,6 @@ You can run all the tests with:
 
 ```bash
 bash scripts/test.sh
-```
-
-> Note: You can also generate a coverage report with:
-
-```bash
-bash scripts/test_html.sh
 ```
 
 ### Format the code 🍂
