@@ -35,7 +35,6 @@ class Metadata:
         raise AttributeError(f"{self.__class__.__name__} has no attribute {__name}")
 
 
-
 def endpoint(
     methods: Iterable[str | Method] | None = None,
     *,

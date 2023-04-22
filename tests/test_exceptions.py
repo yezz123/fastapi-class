@@ -3,9 +3,9 @@ from unittest.mock import patch
 import pytest
 
 from fastapi_class.exception import (
-    FormattedMessageException,
     UNKOWN_SERVER_ERROR_DETAIL,
-    ExceptionAbstract
+    ExceptionAbstract,
+    FormattedMessageException,
 )
 
 

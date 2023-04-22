@@ -1,4 +1,4 @@
-from typing import Any, Generic, TypeVar
+from typing import Any
 
 import pytest
 from fastapi.responses import Response
@@ -6,7 +6,6 @@ from pydantic import BaseModel
 
 from fastapi_class import Metadata
 from tests.factory import Factory
-
 
 
 @pytest.fixture(name="metadata_factory")

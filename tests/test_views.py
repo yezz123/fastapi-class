@@ -1,9 +1,7 @@
-from typing import Any, Generic, TypeVar
-
 import pytest
 from fastapi import APIRouter, FastAPI, status
 
-from fastapi_class import Method, View, endpoint
+from fastapi_class import Method, View
 from tests.factory import Factory
 
 

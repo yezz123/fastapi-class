@@ -19,10 +19,10 @@ RESPONSE_CLASS_ATTRIBUTE_NAME = "RESPONSE_CLASS"
 ENDPOINT_METADATA_ATTRIBUTE_NAME = "ENDPOINT_METADATA"
 EXCEPTIONS_ATTRIBUTE_NAME = "EXCEPTIONS"
 
+
 def _view_class_name_default_parser(cls: object, method: str):
     class_name = " ".join(re.findall(r"[A-Z][^A-Z]*", cls.__name__.replace("View", "")))
     return f"{method.capitalize()} {class_name}"
-
 
 
 def View(
@@ -30,7 +30,7 @@ def View(
     *,
     path: str = "/",
     default_status_code: int = status.HTTP_200_OK,
-    name_parser: Callable[[object, str], str] = _view_class_name_default_parser
+    name_parser: Callable[[object, str], str] = _view_class_name_default_parser,
 ):
     """
     Class-based view decorator.
