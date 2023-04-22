@@ -2,18 +2,18 @@ from unittest.mock import patch
 
 import pytest
 
-from fastapi_class import (
-    UNKNOWN_SERVER_ERROR_DETAIL,
-    ExceptionAbstract,
+from fastapi_class.exception import (
     FormattedMessageException,
+    UNKOWN_SERVER_ERROR_DETAIL,
+    ExceptionAbstract
 )
 
 
-@patch("fastapi_class.ExceptionAbstract.__abstractmethods__", set())
+@patch("fastapi_class.exception.ExceptionAbstract.__abstractmethods__", set())
 def test_abstract_factory_creation__defaults():
     _instance = ExceptionAbstract()
-    assert _instance.exceptions[0][0] == 500
-    assert _instance.exceptions[0][1] == UNKNOWN_SERVER_ERROR_DETAIL
+    assert _instance._exceptions[0][0] == 500
+    assert _instance._exceptions[0][1] == UNKOWN_SERVER_ERROR_DETAIL
 
 
 @pytest.mark.parametrize("keyword_args", ({}, {"some_var": 0}))
