@@ -39,9 +39,7 @@ class ItemView:
 
 __version__ = "3.1.0"
 
-from fastapi_class.exceptions import (
-    UNKNOWN_SERVER_ERROR_DETAIL,
-    ExceptionAbstract,
+from fastapi_class.exception import (
     FormattedMessageException,
 )
 from fastapi_class.openapi import ExceptionModel, _exceptions_to_responses
@@ -54,8 +52,6 @@ __all__ = [
     "Method",
     "Metadata",
     "FormattedMessageException",
-    "UNKNOWN_SERVER_ERROR_DETAIL",
-    "ExceptionAbstract",
     "ExceptionModel",
     "_exceptions_to_responses",
 ]
