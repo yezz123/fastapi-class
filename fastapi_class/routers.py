@@ -2,6 +2,7 @@ from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from enum import Enum
 from functools import wraps
+from typing import Any, ClassVar
 
 from fastapi.responses import Response
 from pydantic import BaseModel
@@ -20,8 +21,19 @@ class Metadata:
     methods: Iterable[Method]
     name: str | None = None
     path: str | None = None
+    status_code: int | None = None
     response_model: type[BaseModel] | None = None
     response_class: type[Response] | None = None
+    __default_method_suffix: ClassVar[str] = "_or_default"
+
+    def __getattr__(self, __name: str) -> Any | Callable[[Any], Any]:
+        if __name.endswith(Metadata.__default_method_suffix):
+            prefix = __name.removesuffix(Metadata.__default_method_suffix)
+            if hasattr(self, prefix):
+                return lambda _default: getattr(self, prefix, None) or _default
+            return getattr(self, prefix)
+        raise AttributeError(f"{self.__class__.__name__} has no attribute {__name}")
+
 
 
 def endpoint(
@@ -29,6 +41,7 @@ def endpoint(
     *,
     name: str | None = None,
     path: str | None = None,
+    status_code: int | None = None,
     response_model: type[BaseModel] | None = None,
     response_class: type[Response] | None = None,
 ):
@@ -38,6 +51,7 @@ def endpoint(
     :param methods: methods
     :param name: name
     :param path: path
+    :param status_code: status code
     :param response_model: response model
     :param response_class: response class
 
@@ -90,6 +104,7 @@ def endpoint(
             methods=parsed_method,
             name=name,
             path=path,
+            status_code=status_code,
             response_class=response_class,
             response_model=response_model,
         )
