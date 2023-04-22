@@ -7,7 +7,7 @@ from fastapi_class import Method, endpoint
 
 
 async def dummy_function():
-    pass
+    pass  # pragma: no cover
 
 
 def assert_methods_in_metadata(_endpoint: Callable, methods: Iterable[Method]):
@@ -47,7 +47,7 @@ def test_endpoint__bad_response_class():
 @pytest.mark.parametrize("method", Method)
 def test_endpoint__method_inferred_from_name(method: Method):
     def foo():
-        pass
+        pass  # pragma: no cover
 
     _endpoint = endpoint(name=method.value)(foo)
     assert_methods_in_metadata(_endpoint, [method])

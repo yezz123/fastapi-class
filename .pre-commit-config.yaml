@@ -17,7 +17,7 @@ repos:
         - --py3-plus
         - --keep-runtime-typing
 -   repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.255
+    rev: v0.0.262
     hooks:
     -   id: ruff
         args:
@@ -28,6 +28,6 @@ repos:
     -   id: isort
         name: isort (python)
 -   repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: 23.3.0
     hooks:
     -   id: black
