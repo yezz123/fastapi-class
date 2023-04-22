@@ -45,7 +45,7 @@ lint = [
 ]
 test = [
     "requests==2.28.2",
-    "pytest==7.3.0",
+    "pytest==7.3.1",
     "pytest-asyncio == 0.21.0",
     "pytest-cov==4.0.0",
     "pytest-pretty==1.2.0",
