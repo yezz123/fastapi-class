@@ -26,3 +26,9 @@ def test_formatted_message_factory__non_formattable_string(keyword_args: dict):
 def test_formatted_message_factory__format_string(arg: str | int | float | bool):
     _instance = FormattedMessageException(exceptions=((500, "Test {test}"),))
     assert _instance(**{"test": arg}).detail == f"Test {arg}"
+
+
+@patch("fastapi_class.exception.ExceptionAbstract.__abstractmethods__", set())
+def test_formatted_message_factory__format_string__missing_key():
+    _instance = FormattedMessageException(exceptions=((500, "Test {test}"),))
+    assert _instance().detail == "Test {test}"
