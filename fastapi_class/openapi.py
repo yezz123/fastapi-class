@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 from collections.abc import Callable, Iterable
 
@@ -14,7 +16,7 @@ class ExceptionModel(BaseModel):
 
 
 def _exceptions_to_responses(
-    exceptions: Iterable[HTTPException | Callable[..., HTTPException]],
+        exceptions: Iterable[HTTPException | Callable[..., HTTPException]],
 ):
     """
     Convert exceptions to responses.
@@ -40,7 +42,8 @@ def _exceptions_to_responses(
             exc = exception if isinstance(exception, HTTPException) else exception()
         except TypeError:
             logger.warning(
-                "Exception %s was failed to be parsed. Make sure it's either an HTTPException instance or it's a factory function with arguments having default values."
+                "Exception %s was failed to be parsed. Make sure it's either an HTTPException instance or it's a "
+                "factory function with arguments having default values."
             )
             exc = HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exception))
         if exc.status_code not in mapping:

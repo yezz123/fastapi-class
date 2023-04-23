@@ -5,6 +5,7 @@ from fastapi_class.exception.handler import (
 )
 
 __all__ = [
-    "FormattedMessageException" "ExceptionAbstract",
+    "FormattedMessageException",
+    "ExceptionAbstract",
     "UNKOWN_SERVER_ERROR_DETAIL",
 ]

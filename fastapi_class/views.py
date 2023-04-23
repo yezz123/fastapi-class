@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from collections.abc import Callable, Iterable
 
@@ -6,12 +8,6 @@ from fastapi.responses import JSONResponse
 
 from fastapi_class.openapi import _exceptions_to_responses
 from fastapi_class.routers import Metadata, Method
-
-
-def _view_class_name_default_parser(cls: object, method: str):
-    class_name = " ".join(re.findall(r"[A-Z][^A-Z]*", cls.__name__.replace("View", "")))
-    return f"{method.capitalize()} {class_name}"
-
 
 COMMON_KEYWORD = "common"
 RESPONSE_MODEL_ATTRIBUTE_NAME = "RESPONSE_MODEL"
@@ -26,11 +22,11 @@ def _view_class_name_default_parser(cls: object, method: str):
 
 
 def View(
-    router: FastAPI | APIRouter,
-    *,
-    path: str = "/",
-    default_status_code: int = status.HTTP_200_OK,
-    name_parser: Callable[[object, str], str] = _view_class_name_default_parser,
+        router: FastAPI | APIRouter,
+        *,
+        path: str = "/",
+        default_status_code: int = status.HTTP_200_OK,
+        name_parser: Callable[[object, str], str] = _view_class_name_default_parser,
 ):
     """
     Class-based view decorator.
@@ -67,7 +63,7 @@ def View(
         for _callable_name in dir(obj):
             _callable = getattr(obj, _callable_name)
             if _callable_name in set(Method) or hasattr(
-                _callable, ENDPOINT_METADATA_ATTRIBUTE_NAME
+                    _callable, ENDPOINT_METADATA_ATTRIBUTE_NAME
             ):
                 metadata: Metadata = getattr(
                     _callable,
