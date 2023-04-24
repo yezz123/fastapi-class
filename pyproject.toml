@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "fastapi_class"
 description = "Simplifies class-based views for more organized and maintainable code in FastAPI."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 license = "MIT"
 authors = [
     { name = "Yasser Tahiri", email = "hello@yezz.me" },
