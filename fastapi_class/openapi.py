@@ -16,7 +16,7 @@ class ExceptionModel(BaseModel):
 
 
 def _exceptions_to_responses(
-        exceptions: Iterable[HTTPException | Callable[..., HTTPException]],
+    exceptions: Iterable[HTTPException | Callable[..., HTTPException]],
 ):
     """
     Convert exceptions to responses.

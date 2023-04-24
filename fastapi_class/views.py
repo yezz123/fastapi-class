@@ -22,11 +22,11 @@ def _view_class_name_default_parser(cls: object, method: str):
 
 
 def View(
-        router: FastAPI | APIRouter,
-        *,
-        path: str = "/",
-        default_status_code: int = status.HTTP_200_OK,
-        name_parser: Callable[[object, str], str] = _view_class_name_default_parser,
+    router: FastAPI | APIRouter,
+    *,
+    path: str = "/",
+    default_status_code: int = status.HTTP_200_OK,
+    name_parser: Callable[[object, str], str] = _view_class_name_default_parser,
 ):
     """
     Class-based view decorator.
@@ -63,7 +63,7 @@ def View(
         for _callable_name in dir(obj):
             _callable = getattr(obj, _callable_name)
             if _callable_name in set(Method) or hasattr(
-                    _callable, ENDPOINT_METADATA_ATTRIBUTE_NAME
+                _callable, ENDPOINT_METADATA_ATTRIBUTE_NAME
             ):
                 metadata: Metadata = getattr(
                     _callable,
