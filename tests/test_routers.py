@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Callable, Iterable
 from types import FunctionType
 
@@ -10,7 +12,7 @@ async def dummy_function():
     pass  # pragma: no cover
 
 
-def assert_methods_in_metadata(_endpoint: Callable, methods: Iterable[Method]):
+def assert_methods_in_metadata(_endpoint: Callable, methods: Iterable[str | Method]):
     assert _endpoint.__endpoint_metadata
     assert len(_endpoint.__endpoint_metadata.methods) == len(methods)
     assert all(method in _endpoint.__endpoint_metadata.methods for method in methods)

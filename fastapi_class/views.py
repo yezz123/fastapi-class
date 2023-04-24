@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from collections.abc import Callable, Iterable
 
@@ -6,12 +8,6 @@ from fastapi.responses import JSONResponse
 
 from fastapi_class.openapi import _exceptions_to_responses
 from fastapi_class.routers import Metadata, Method
-
-
-def _view_class_name_default_parser(cls: object, method: str):
-    class_name = " ".join(re.findall(r"[A-Z][^A-Z]*", cls.__name__.replace("View", "")))
-    return f"{method.capitalize()} {class_name}"
-
 
 COMMON_KEYWORD = "common"
 RESPONSE_MODEL_ATTRIBUTE_NAME = "RESPONSE_MODEL"

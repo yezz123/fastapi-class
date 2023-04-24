@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from enum import Enum
@@ -18,7 +20,7 @@ class Method(str, Enum):
 
 @dataclass(frozen=True, init=True, repr=True)
 class Metadata:
-    methods: Iterable[Method]
+    methods: Iterable[str | Method]
     name: str | None = None
     path: str | None = None
     status_code: int | None = None
@@ -28,7 +30,7 @@ class Metadata:
 
     def __getattr__(self, __name: str) -> Any | Callable[[Any], Any]:
         if __name.endswith(Metadata.__default_method_suffix):
-            prefix = __name.removesuffix(Metadata.__default_method_suffix)
+            prefix = __name.replace(Metadata.__default_method_suffix, "")
             if hasattr(self, prefix):
                 return lambda _default: getattr(self, prefix, None) or _default
             return getattr(self, prefix)
