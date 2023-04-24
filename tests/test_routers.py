@@ -29,11 +29,15 @@ def test_endpoint__correct(method: Method):
 def test_endpoint__supplied_methods_can_str_or_enum_in_iterable():
     _endpoint = endpoint(["get", Method.POST, "PATCH", "Delete", "pUt"])(dummy_function)
     assert_methods_in_metadata(_endpoint, Method)
+    _endpoint = endpoint(("get", Method.POST, "PATCH", "Delete", "pUt"))(dummy_function)
+    assert_methods_in_metadata(_endpoint, Method)
+    _endpoint = endpoint({"get", Method.POST, "PATCH", "Delete", "pUt"})(dummy_function)
+    assert_methods_in_metadata(_endpoint, Method)
 
 
 def test_endpoint__supplied_methods_can_single_str():
     for method in Method:
-        _endpoint = endpoint(method)(dummy_function)
+        _endpoint = endpoint(method.value)(dummy_function)
         assert_methods_in_metadata(_endpoint, [method])
 
 
