@@ -77,7 +77,7 @@ router = APIRouter()
 
 NOT_AUTHORIZED = HTTPException(401, "Not authorized.")
 NOT_ALLOWED = HTTPException(405, "Method not allowed.")
-NOT_FOUND  = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} not found.")
+NOT_FOUND = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} not found.")
 
 class ItemResponse(BaseModel):
     field: str | None = None
@@ -99,8 +99,10 @@ class MyView:
 
     def get(self):
         ...
+    
     def put(self):
         ...
+    
     def delete(self):
         ...
 
@@ -121,7 +123,7 @@ router = APIRouter()
 
 NOT_AUTHORIZED = HTTPException(401, "Not authorized.")
 NOT_ALLOWED = HTTPException(405, "Method not allowed.")
-NOT_FOUND  = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} not found.")
+NOT_FOUND = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} not found.")
 EXCEPTION = HTTPException(400, "Example.")
 
 class UserResponse(BaseModel):
@@ -146,16 +148,20 @@ class MyView:
 
     def get(self):
         ...
+
     def put(self):
         ...
+
     def delete(self):
         ...
+
     @endpoint(("PUT",), path="edit")
     def edit(self):
         ...
 ```
 
-**Note:** The `edit()` endpoint is decorated with the `@endpoint(("PUT",), path="edit")` decorator, which specifies that this endpoint should handle `PUT` requests to the `/edit` path.
+**Note:** The `edit()` endpoint is decorated with the `@endpoint(("PUT",), path="edit")` decorator, which specifies that this endpoint should handle `PUT` requests to the `/edit` path,
+using `@endpoint("PUT", path="edit")` has the same effect
 
 ## Development 🚧
 
