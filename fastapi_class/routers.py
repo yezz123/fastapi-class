@@ -81,9 +81,7 @@ def endpoint(
         if _type is not None
     ), "Response model and response class must be subclasses of BaseModel and Response respectively."
     assert (
-        isinstance(methods, Iterable)
-        or isinstance(methods, str)
-        or methods is None
+        isinstance(methods, Iterable) or isinstance(methods, str) or methods is None
     ), "Methods must be an string, iterable of strings or Method enums."
 
     def _decorator(function: Callable):
@@ -92,7 +90,11 @@ def endpoint(
             return await function(*args, **kwargs)
 
         parsed_method = set()
-        _methods = (methods,) if isinstance(methods, str) else methods or ((name,) if name else (function.__name__,))
+        _methods = (
+            (methods,)
+            if isinstance(methods, str)
+            else methods or ((name,) if name else (function.__name__,))
+        )
         for method in _methods:
             if isinstance(method, Method):
                 parsed_method.add(method)
