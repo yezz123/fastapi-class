@@ -38,7 +38,7 @@ class Metadata:
 
 
 def endpoint(
-    methods: Iterable[str | Method] | None = None,
+    methods: Iterable[str | Method] | str | None = None,
     *,
     name: str | None = None,
     path: str | None = None,
@@ -82,9 +82,9 @@ def endpoint(
     ), "Response model and response class must be subclasses of BaseModel and Response respectively."
     assert (
         isinstance(methods, Iterable)
-        and not isinstance(methods, str)
+        or isinstance(methods, str)
         or methods is None
-    ), "Methods must be an iterable of strings or Method enums."
+    ), "Methods must be an string, iterable of strings or Method enums."
 
     def _decorator(function: Callable):
         @wraps(function)
@@ -92,7 +92,7 @@ def endpoint(
             return await function(*args, **kwargs)
 
         parsed_method = set()
-        _methods = methods or ((name,) if name else (function.__name__,))
+        _methods = (methods,) if isinstance(methods, str) else methods or ((name,) if name else (function.__name__,))
         for method in _methods:
             if isinstance(method, Method):
                 parsed_method.add(method)
