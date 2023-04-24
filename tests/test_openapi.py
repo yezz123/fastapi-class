@@ -28,7 +28,9 @@ def test_exceptions_to_responses__mixed():
 def test_exceptions_to_responses__collision_on_status_code():
     assert _exceptions_to_responses(
         [lambda: HTTPException(400, "lambda"), HTTPException(400, "exc")]
-    ) == {400: {"description": "lambda or exc", "model": ExceptionModel},}
+    ) == {
+        400: {"description": "lambda or exc", "model": ExceptionModel},
+    }
 
 
 def test_exceptions_to_response__broad_exception():

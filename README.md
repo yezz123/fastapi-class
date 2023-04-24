@@ -99,10 +99,10 @@ class MyView:
 
     def get(self):
         ...
-    
+
     def put(self):
         ...
-    
+
     def delete(self):
         ...
 
