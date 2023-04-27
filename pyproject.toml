@@ -32,6 +32,8 @@ classifiers = [
 dependencies = [
     "fastapi >=0.65.2,<0.96.0",
     "pydantic >=1.6.2,!=1.7,!=1.7.1,!=1.7.2,!=1.7.3,!=1.8,!=1.8.1,<2.0.0",
+    "orjson >=3.8.4,<4.0.0",
+    "uvicorn >=0.21.0,<1.0.0",
 ]
 
 dynamic = ["version"]
@@ -58,7 +60,7 @@ path = "fastapi_class/__init__.py"
 
 [tool.isort]
 profile = "black"
-known_third_party = ["pydantic", "typing_extensions"]
+known_third_party = ["pydantic"]
 
 [tool.ruff]
 select = [
@@ -74,13 +76,15 @@ ignore = [
     "B008",  # do not perform function calls in argument defaults
     "C901",  # too complex
     "B018",  # Found useless expression
+    "B020",  # Loop control variable `status` overrides iterable it iterates
+    "B012"   # `return` inside `finally` blocks cause exceptions to be silenced
 ]
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]
 
 [tool.ruff.isort]
-known-third-party = ["pydantic", "typing_extensions"]
+known-third-party = ["pydantic"]
 
 [tool.mypy]
 plugins = "pydantic.mypy"
