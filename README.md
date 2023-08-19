@@ -82,7 +82,7 @@ NOT_FOUND = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} n
 class ItemResponse(BaseModel):
     field: str | None = None
 
-@view(router)
+@View(router)
 class MyView:
     exceptions = {
         "__all__": [NOT_AUTHORIZED],
