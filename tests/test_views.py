@@ -55,9 +55,7 @@ def fixture_class_base_view_factory():
             def dummy(self):
                 ...
 
-            data[_endpoint.get("alternative_name") or dummy.__name__] = _endpoint[
-                "decorator"
-            ](dummy)
+            data[_endpoint.get("alternative_name") or dummy.__name__] = _endpoint["decorator"](dummy)
         class_base_view = type(name, (object,), data)
 
         return class_base_view
@@ -77,9 +75,6 @@ def test_view__use_name_of_functions_as_methods(
     for method in Method:
         assert "/" in schema["paths"]
         assert method.value in schema["paths"]["/"]
-        assert (
-            schema["paths"]["/"][method.value]["summary"]
-            == f"{method.value.capitalize()} Test Class Based"
-        )
+        assert schema["paths"]["/"][method.value]["summary"] == f"{method.value.capitalize()} Test Class Based"
         responses = schema["paths"]["/"][method.value]["responses"]
         assert "200" in responses
