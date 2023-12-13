@@ -37,7 +37,7 @@ class ItemView:
 """
 
 
-__version__ = "3.3.0"
+__version__ = "3.4.0"
 
 from fastapi_class.exception import FormattedMessageException
 from fastapi_class.openapi import ExceptionModel, _exceptions_to_responses
