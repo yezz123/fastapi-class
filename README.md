@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-<a href="https://github.com/yezz123/fastapi-class/actions/workflows/test.yml" target="_blank">
-    <img src="https://github.com/yezz123/fastapi-class/actions/workflows/test.yml/badge.svg" alt="Test">
+<a href="https://github.com/yezz123/fastapi-class/actions/workflows/ci.yml" target="_blank">
+    <img src="https://github.com/yezz123/fastapi-class/actions/workflows/ci.yml/badge.svg" alt="Continuous Integration">
 </a>
 <a href="https://codecov.io/gh/yezz123/fastapi-class">
     <img src="https://codecov.io/gh/yezz123/fastapi-class/branch/main/graph/badge.svg"/>
@@ -16,6 +16,9 @@
 </a>
 <a href="https://pypi.org/project/fastapi-class" target="_blank">
     <img src="https://img.shields.io/pypi/pyversions/fastapi-class.svg?color=%2334D058" alt="Supported Python versions">
+</a>
+<a href="https://pepy.tech/project/fastapi_class" target="_blank">
+    <img src="https://static.pepy.tech/badge/fastapi_class" alt="Test">
 </a>
 </p>
 
