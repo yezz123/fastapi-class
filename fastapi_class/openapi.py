@@ -52,6 +52,6 @@ def _exceptions_to_responses(
                 "model": ExceptionModel,
             }
         else:
-            mapping[exc.status_code]["description"] += f" or {exc.detail}"
+            mapping[exc.status_code]["description"] += f" or {exc.detail}"  # type: ignore
 
     return mapping
