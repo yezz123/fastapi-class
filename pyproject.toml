@@ -11,6 +11,13 @@ license = "MIT"
 authors = [
     { name = "Yasser Tahiri", email = "hello@yezz.me" },
 ]
+keywords = [
+    "FastAPI",
+    "MVC",
+    "pydantic",
+    "class-based",
+    "class-based-views",
+]
 
 classifiers = [
     "License :: OSI Approved :: MIT License",
@@ -32,7 +39,7 @@ classifiers = [
 
 dependencies = [
     "pydantic >=1.6.2,!=1.7,!=1.7.1,!=1.7.2,!=1.7.3,!=1.8,!=1.8.1,<3.0.0",
-    "fastapi >=0.65.2,<0.110.0",
+    "fastapi >=0.65.2,<0.109.3",
 ]
 
 dynamic = ["version"]
@@ -61,8 +68,7 @@ path = "fastapi_class/__init__.py"
 profile = "black"
 known_third_party = ["pydantic", "typing_extensions"]
 
-[tool.ruff]
-line-length = 120
+[tool.ruff.lint]
 mccabe = { max-complexity = 14 }
 select = [
     "E",  # pycodestyle errors
@@ -73,31 +79,23 @@ select = [
     "B",  # flake8-bugbear
 ]
 ignore = [
-    "E501",  # line too long, handled by black
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
-    "B018",  # Found useless expression
+    "E501", # line too long
+    "B018" # Found useless expression.
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-third-party = ["pydantic", "typing_extensions"]
 
-[tool.ruff.pyupgrade]
+[tool.ruff.lint.pyupgrade]
 keep-runtime-typing = true
 
 [tool.mypy]
 plugins = "pydantic.mypy"
 follow_imports = "silent"
-strict_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-disallow_any_generics = true
-check_untyped_defs = true
-ignore_missing_imports = true
-disallow_untyped_defs = true
+
 
 [tool.coverage.report]
 precision = 2
