@@ -45,15 +45,13 @@ def fixture_class_base_view_factory():
         endpoints = endpoints or []
         for method in methods:
 
-            def dummy(self):
-                ...
+            def dummy(self): ...
 
             dummy.__name__ = method.value
             data[method.value] = dummy
         for _endpoint in endpoints:
 
-            def dummy(self):
-                ...
+            def dummy(self): ...
 
             data[_endpoint.get("alternative_name") or dummy.__name__] = _endpoint[
                 "decorator"

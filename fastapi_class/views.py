@@ -10,9 +10,9 @@ from fastapi_class.openapi import _exceptions_to_responses
 from fastapi_class.routers import Metadata, Method
 
 COMMON_KEYWORD = "common"
-RESPONSE_MODEL_ATTRIBUTE_NAME = "RESPONSE_MODEL"
-RESPONSE_CLASS_ATTRIBUTE_NAME = "RESPONSE_CLASS"
-ENDPOINT_METADATA_ATTRIBUTE_NAME = "ENDPOINT_METADATA"
+RESPONSE_MODEL_ATTRIBUTE_NAME = "response_model"
+RESPONSE_CLASS_ATTRIBUTE_NAME = "response_class"
+ENDPOINT_METADATA_ATTRIBUTE_NAME = "__endpoint_metadata"
 EXCEPTIONS_ATTRIBUTE_NAME = "EXCEPTIONS"
 
 
@@ -29,28 +29,17 @@ def View(
     name_parser: Callable[[object, str], str] = _view_class_name_default_parser,
 ):
     """
-    Class-based view decorator.
+    Class-based view decorator for FastAPI.
 
-    :param router: router
-    :param path: path
-    :param default_status_code: default status code
-    :param name_parser: name parser
+    ### Example:
+        >>> from fastapi import FastAPI
+        >>> from fastapi_class import View
 
-    :raise AssertionError: if router is not an instance of FastAPI or APIRouter
-
-    :example:
-    >>> from fastapi import FastAPI
-    >>> from fastapi_class import View
-    >>> app = FastAPI()
-    >>> @View(app)
-    ... class MyView:
-    ...     def get(self):
-    ...         return {"message": "Hello, world!"}
-    >>> app.include_router(MyView.router)
-
-    Results:
-
-    `GET /my-view`
+        >>> app = FastAPI()
+        >>> @View(app)
+        ... class MyView:
+        ...     async def get(self):
+        ...         return {"message": "Hello, world!"}
     """
 
     def _decorator(cls) -> None:
