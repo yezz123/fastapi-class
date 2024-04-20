@@ -41,27 +41,25 @@ A common question people have as they become more comfortable with FastAPI is ho
 - Example:
 
 ```python
-from fastapi import FastAPI, APIRouter, Query
+from fastapi import FastAPI, Query
 from pydantic import BaseModel
 from fastapi_class import View
 
 app = FastAPI()
-router = APIRouter()
 
 class ItemModel(BaseModel):
     id: int
     name: str
     description: str = None
 
-@View(router)
+@View(app)
 class ItemView:
-    def post(self, item: ItemModel):
+    async def post(self, item: ItemModel):
         return item
 
-    def get(self, item_id: int = Query(..., gt=0)):
+    async def get(self, item_id: int = Query(..., gt=0)):
         return {"item_id": item_id}
 
-app.include_router(router)
 ```
 
 ### Response model 📦
@@ -69,14 +67,13 @@ app.include_router(router)
 `Exception` in list need to be either function that return `fastapi.HTTPException` itself. In case of a function it is required to have all of it's arguments to be `optional`.
 
 ```py
-from fastapi import FastAPI, APIRouter, HTTPException, status
+from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 
 from fastapi_class import View
 
 app = FastAPI()
-router = APIRouter()
 
 NOT_AUTHORIZED = HTTPException(401, "Not authorized.")
 NOT_ALLOWED = HTTPException(405, "Method not allowed.")
@@ -85,7 +82,7 @@ NOT_FOUND = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} n
 class ItemResponse(BaseModel):
     field: str | None = None
 
-@View(router)
+@View(app)
 class MyView:
     exceptions = {
         "__all__": [NOT_AUTHORIZED],
@@ -100,29 +97,26 @@ class MyView:
         "delete": PlainTextResponse
     }
 
-    def get(self):
+    async def get(self):
         ...
 
-    def put(self):
+    async def put(self):
         ...
 
-    def delete(self):
+    async def delete(self):
         ...
-
-app.include_router(router)
 ```
 
 ### Customized Endpoints
 
 ```py
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 
 from fastapi_class import View, endpoint
 
 app = FastAPI()
-router = APIRouter()
 
 NOT_AUTHORIZED = HTTPException(401, "Not authorized.")
 NOT_ALLOWED = HTTPException(405, "Method not allowed.")
@@ -132,7 +126,7 @@ EXCEPTION = HTTPException(400, "Example.")
 class UserResponse(BaseModel):
     field: str | None = None
 
-@View(router)
+@View(app)
 class MyView:
     exceptions = {
         "__all__": [NOT_AUTHORIZED],
@@ -149,17 +143,17 @@ class MyView:
         "delete": PlainTextResponse
     }
 
-    def get(self):
+    async def get(self):
         ...
 
-    def put(self):
+    async def put(self):
         ...
 
-    def delete(self):
+    async def delete(self):
         ...
 
-    @endpoint(("PUT",), path="edit")
-    def edit(self):
+    @endpoint(("PUT"), path="edit")
+    async def edit(self):
         ...
 ```
 
@@ -182,9 +176,17 @@ source venv/bin/activate
 
 And then install the development dependencies:
 
+__Note:__ You should have `uv` installed, if not you can install it with:
+
+```bash
+pip install uv
+```
+
+Then you can install the dependencies with:
+
 ```bash
 # Install dependencies
-pip install -e .[test,lint]
+uv pip install -r requirements/all.txt
 ```
 
 ### Run tests 🌝
