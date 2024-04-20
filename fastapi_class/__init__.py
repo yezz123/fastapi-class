@@ -30,12 +30,11 @@ class ItemView:
     async def get(self, query: str = Query(), limit: int = 50, offset: int = 0):
         pass
 
-    def post(self, user: ItemModel):
+    async def post(self, user: ItemModel):
         pass
 ```
 
 """
-
 
 __version__ = "3.5.0"
 

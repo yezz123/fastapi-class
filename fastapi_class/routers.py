@@ -11,6 +11,10 @@ from pydantic import BaseModel
 
 
 class Method(str, Enum):
+    """
+    HTTP methods.
+    """
+
     GET = "get"
     POST = "post"
     PATCH = "patch"
@@ -20,6 +24,10 @@ class Method(str, Enum):
 
 @dataclass(frozen=True, init=True, repr=True)
 class Metadata:
+    """
+    Metadata class, used to store endpoint metadata.
+    """
+
     methods: Iterable[str | Method]
     name: str | None = None
     path: str | None = None
@@ -29,6 +37,9 @@ class Metadata:
     __default_method_suffix: ClassVar[str] = "_or_default"
 
     def __getattr__(self, __name: str) -> Any | Callable[[Any], Any]:
+        """
+        Dynamically return the value of the attribute.
+        """
         if __name.endswith(Metadata.__default_method_suffix):
             prefix = __name.replace(Metadata.__default_method_suffix, "")
             if hasattr(self, prefix):
@@ -47,30 +58,16 @@ def endpoint(
     response_class: type[Response] | None = None,
 ):
     """
-    Endpoint decorator.
+    Endpoint decorator for FastAPI.
 
-    :param methods: methods
-    :param name: name
-    :param path: path
-    :param status_code: status code
-    :param response_model: response model
-    :param response_class: response class
-
-    :raise AssertionError: if response model or response class is not a subclass of BaseModel or Response respectively
-    :raise AssertionError: if methods is not an iterable of strings or Method enums
-
-    :example:
-    >>> from fastapi import FastAPI
-    >>> from fastapi_class import endpoint
-    >>> app = FastAPI()
-    >>> @endpoint()
-    ... def get():
-    ...     return {"message": "Hello, world!"}
-    >>> app.include_router(get)
-
-    Results:
-
-    `GET /get`
+    ### Example:
+        >>> from fastapi import FastAPI
+        >>> from fastapi_class import endpoint
+        >>> app = FastAPI()
+        >>> @endpoint()
+        ... async def get():
+        ...     return {"message": "Hello, world!"}
+        >>> app.include_router(get)
     """
     assert all(
         issubclass(_type, expected_type)
@@ -85,8 +82,15 @@ def endpoint(
     ), "Methods must be an string, iterable of strings or Method enums."
 
     def _decorator(function: Callable):
+        """
+        Decorate the function.
+        """
+
         @wraps(function)
         async def _wrapper(*args, **kwargs):
+            """
+            Wrapper for the function.
+            """
             return await function(*args, **kwargs)
 
         parsed_method = set()

@@ -21,12 +21,7 @@ def _exceptions_to_responses(
     """
     Convert exceptions to responses.
 
-    :param exceptions: exceptions
-    :return: responses
-
-    :raise TypeError: if exception is not an instance of HTTPException or a factory function
-
-    :example:
+    ### example
     >>> from fastapi import HTTPException, status
     >>> from fastapi_class import _exceptions_to_responses
     >>> _exceptions_to_responses([HTTPException(status.HTTP_400_BAD_REQUEST, detail="Bad request")])
