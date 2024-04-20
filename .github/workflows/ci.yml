@@ -32,6 +32,9 @@ jobs:
       - name: Run Pre-commit
         run: bash scripts/format.sh
 
+      - name: Run Mypy
+        run: bash scripts/lint.sh
+
   tests:
 
     name: test py${{ matrix.python-version }} on ${{ matrix.os }}
