@@ -83,6 +83,17 @@ keep-runtime-typing = true
 plugins = "pydantic.mypy"
 follow_imports = "silent"
 
+[tool.coverage.run]
+source = ["fastapi_class"]
+branch = true
+context = '${CONTEXT}'
+
+[tool.coverage.paths]
+source = [
+    'fastapi_class/',
+    '/Users/runner/work/fastapi_class/fastapi_class/fastapi_class/',
+    'D:\a\fastapi_class\fastapi_class\fastapi_class',
+]
 
 [tool.coverage.report]
 precision = 2
