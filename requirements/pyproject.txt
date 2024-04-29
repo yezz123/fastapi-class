@@ -7,7 +7,7 @@ anyio==4.3.0
 fastapi==0.110.2
 idna==3.7
     # via anyio
-pydantic==2.7.0
+pydantic==2.7.1
     # via fastapi
 pydantic-core==2.18.1
     # via pydantic
