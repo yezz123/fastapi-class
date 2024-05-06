@@ -4,7 +4,7 @@ annotated-types==0.6.0
     # via pydantic
 anyio==4.3.0
     # via starlette
-fastapi==0.110.2
+fastapi==0.111.0
 idna==3.7
     # via anyio
 pydantic==2.7.1
