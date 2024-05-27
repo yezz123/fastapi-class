@@ -32,7 +32,7 @@ pytest-cov==5.0.0
     # via -r requirements/testing.in
 pytest-pretty==1.2.0
     # via -r requirements/testing.in
-requests==2.31.0
+requests==2.32.2
     # via -r requirements/testing.in
 rich==13.7.1
     # via pytest-pretty
