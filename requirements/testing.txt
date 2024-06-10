@@ -20,7 +20,7 @@ pluggy==1.5.0
     # via pytest
 pygments==2.17.2
     # via rich
-pytest==8.2.1
+pytest==8.2.2
     # via
     #   -r requirements/testing.in
     #   pytest-asyncio
