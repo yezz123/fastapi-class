@@ -34,7 +34,7 @@ pyupgrade==3.16.0
     # via -r requirements/linting.in
 pyyaml==6.0.1
     # via pre-commit
-ruff==0.5.1
+ruff==0.5.2
     # via -r requirements/linting.in
 tokenize-rt==5.2.0
     # via pyupgrade
