@@ -2,18 +2,18 @@
 #    uv pip compile pyproject.toml -o requirements/pyproject.txt
 annotated-types==0.7.0
     # via pydantic
-anyio==4.4.0
+anyio==4.6.2.post1
     # via starlette
-fastapi==0.111.1
-idna==3.7
+fastapi==0.115.4
+idna==3.10
     # via anyio
-pydantic==2.8.2
+pydantic==2.9.2
     # via fastapi
-pydantic-core==2.20.1
+pydantic-core==2.25.0
     # via pydantic
 sniffio==1.3.1
     # via anyio
-starlette==0.37.2
+starlette==0.41.2
     # via fastapi
 typing-extensions==4.12.2
     # via
