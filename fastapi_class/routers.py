@@ -76,10 +76,12 @@ def endpoint(
             (response_class, Response),
         )
         if _type is not None
-    ), "Response model and response class must be subclasses of BaseModel and Response respectively."
-    assert (
-        isinstance(methods, (Iterable, str)) or methods is None
-    ), "Methods must be an string, iterable of strings or Method enums."
+    ), (
+        "Response model and response class must be subclasses of BaseModel and Response respectively."
+    )
+    assert isinstance(methods, (Iterable, str)) or methods is None, (
+        "Methods must be an string, iterable of strings or Method enums."
+    )
 
     def _decorator(function: Callable):
         """
