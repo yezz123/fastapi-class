@@ -18,8 +18,7 @@ class ExceptionModel(BaseModel):
 def _exceptions_to_responses(
     exceptions: Iterable[HTTPException | Callable[..., HTTPException]],
 ):
-    """
-    Convert exceptions to responses.
+    """Convert exceptions to responses.
 
     ### example
     >>> from fastapi import HTTPException, status

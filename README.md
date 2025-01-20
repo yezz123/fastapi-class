@@ -164,18 +164,6 @@ using `@endpoint("PUT", path="edit")` has the same effect
 
 ### Setup environment 📦
 
-You should create a virtual environment and activate it:
-
-```bash
-python -m venv venv/
-```
-
-```bash
-source venv/bin/activate
-```
-
-And then install the development dependencies:
-
 __Note:__ You should have `uv` installed, if not you can install it with:
 
 ```bash
@@ -186,7 +174,7 @@ Then you can install the dependencies with:
 
 ```bash
 # Install dependencies
-uv pip install -r requirements/all.txt
+uv sync --all-extras
 ```
 
 ### Run tests 🌝

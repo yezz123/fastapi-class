@@ -13,9 +13,7 @@ class ExceptionAbstract(ABC):
     _DEFAULT_DETAIL_SPECIAL_NAME = "__detail__"
 
     def __init__(self, *, exceptions: Iterable[tuple[int, str]] | None = None) -> None:
-        self._exceptions = exceptions or [
-            (status.HTTP_500_INTERNAL_SERVER_ERROR, UNKOWN_SERVER_ERROR_DETAIL)
-        ]
+        self._exceptions = exceptions or [(status.HTTP_500_INTERNAL_SERVER_ERROR, UNKOWN_SERVER_ERROR_DETAIL)]
 
     @classmethod
     @abstractmethod

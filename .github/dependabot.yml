@@ -8,14 +8,3 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: ⬆
-  # Python
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    groups:
-      python-packages:
-        patterns:
-          - "*"
-    commit-message:
-      prefix: ⬆
