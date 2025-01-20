@@ -1,5 +1,0 @@
-requests
-pytest
-pytest-asyncio
-pytest-cov
-pytest-pretty
