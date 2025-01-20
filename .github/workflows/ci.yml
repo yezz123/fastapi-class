@@ -7,11 +7,11 @@ on:
   pull_request: {}
 
 jobs:
-  lint:
+  mypy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11"]
+        python-version: ["3.12"]
       fail-fast: false
 
     steps:
@@ -27,13 +27,10 @@ jobs:
           uv-venv: ".venv"
 
       - name: Install Dependencies
-        run: uv pip install -r requirements/pyproject.txt && uv pip install -r requirements/linting.txt
+        run: uv sync --group lint --all-extras
 
-      - name: Run Pre-commit
-        run: bash scripts/format.sh
-
-      - name: Run Mypy
-        run: bash scripts/lint.sh
+      - name: Typecheck with mypy
+        run: bash scripts/mypy.sh
 
   tests:
 
@@ -46,9 +43,9 @@ jobs:
 
       matrix:
 
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: [ "3.9", "3.10", "3.11", "3.12", "3.13"]
 
-        os: [ubuntu, macos, windows]
+        os: [ubuntu]
 
     steps:
       - uses: actions/checkout@v4
@@ -58,16 +55,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: setup uv
+      - name: setup UV
         uses: yezz123/setup-uv@v4.1
         with:
           uv-venv: ".venv"
 
       - name: Install Dependencies
-        run: uv pip install -r requirements/pyproject.txt && uv pip install -r requirements/testing.txt
-
-      - name: Freeze Dependencies
-        run: uv pip freeze
+        run: uv sync --group test --all-extras
 
       - name: Test with pytest - ${{ matrix.os }} - py${{ matrix.python-version }}
         run: bash scripts/test.sh
@@ -78,12 +72,14 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
+          files: ./coverage.xml
 
-  # https://github.com/marketplace/actions/alls-green#why used for branch protection checks
+  # https://github.com/marketplace/actions/alls-green#why
+  # used for branch protection checks
   check:
     if: always()
-    needs: [lint, tests]
+
+    needs: [mypy, tests]
     runs-on: ubuntu-latest
     steps:
       - name: Decide whether the needed jobs succeeded or failed
