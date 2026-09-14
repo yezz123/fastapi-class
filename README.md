@@ -47,10 +47,12 @@ from fastapi_class import View
 
 app = FastAPI()
 
+
 class ItemModel(BaseModel):
     id: int
     name: str
     description: str = None
+
 
 @View(app)
 class ItemView:
@@ -59,7 +61,6 @@ class ItemView:
 
     async def get(self, item_id: int = Query(..., gt=0)):
         return {"item_id": item_id}
-
 ```
 
 ### Response model 📦
@@ -79,32 +80,24 @@ NOT_AUTHORIZED = HTTPException(401, "Not authorized.")
 NOT_ALLOWED = HTTPException(405, "Method not allowed.")
 NOT_FOUND = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} not found.")
 
+
 class ItemResponse(BaseModel):
     field: str | None = None
 
+
 @View(app)
 class MyView:
-    exceptions = {
-        "__all__": [NOT_AUTHORIZED],
-        "put": [NOT_ALLOWED, NOT_FOUND]
-    }
+    exceptions = {"__all__": [NOT_AUTHORIZED], "put": [NOT_ALLOWED, NOT_FOUND]}
 
-    RESPONSE_MODEL = {
-        "put": ItemResponse
-    }
+    RESPONSE_MODEL = {"put": ItemResponse}
 
-    RESPONSE_CLASS = {
-        "delete": PlainTextResponse
-    }
+    RESPONSE_CLASS = {"delete": PlainTextResponse}
 
-    async def get(self):
-        ...
+    async def get(self): ...
 
-    async def put(self):
-        ...
+    async def put(self): ...
 
-    async def delete(self):
-        ...
+    async def delete(self): ...
 ```
 
 ### Customized Endpoints
@@ -123,38 +116,27 @@ NOT_ALLOWED = HTTPException(405, "Method not allowed.")
 NOT_FOUND = lambda item_id="item_id": HTTPException(404, f"Item with {item_id} not found.")
 EXCEPTION = HTTPException(400, "Example.")
 
+
 class UserResponse(BaseModel):
     field: str | None = None
 
+
 @View(app)
 class MyView:
-    exceptions = {
-        "__all__": [NOT_AUTHORIZED],
-        "put": [NOT_ALLOWED, NOT_FOUND],
-        "edit": [EXCEPTION]
-    }
+    exceptions = {"__all__": [NOT_AUTHORIZED], "put": [NOT_ALLOWED, NOT_FOUND], "edit": [EXCEPTION]}
 
-    RESPONSE_MODEL = {
-        "put": UserResponse,
-        "edit": UserResponse
-    }
+    RESPONSE_MODEL = {"put": UserResponse, "edit": UserResponse}
 
-    RESPONSE_CLASS = {
-        "delete": PlainTextResponse
-    }
+    RESPONSE_CLASS = {"delete": PlainTextResponse}
 
-    async def get(self):
-        ...
+    async def get(self): ...
 
-    async def put(self):
-        ...
+    async def put(self): ...
 
-    async def delete(self):
-        ...
+    async def delete(self): ...
 
     @endpoint(("PUT"), path="edit")
-    async def edit(self):
-        ...
+    async def edit(self): ...
 ```
 
 **Note:** The `edit()` endpoint is decorated with the `@endpoint(("PUT",), path="edit")` decorator, which specifies that this endpoint should handle `PUT` requests to the `/edit` path,
